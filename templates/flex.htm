@@ -47,12 +47,36 @@
   background-size: contain;
   z-index: 1;
 }
-.logo{
-  height: 20px;
-  width: 20px;
-}
+
   </style>
-	
+  <script>
+  function validateForm() {
+    let Fname = document.forms["feedbackform"]["Fname"].value;
+    let Email = document.forms["feedbackform"]["Email"].value;
+    let Sub = document.forms["feedbackform"]["Sub"].value;
+    let Msg = document.forms["feedbackform"]["Msg"].value;
+    if (Fname == ""){
+        alert("Please enter your name")
+        return false
+    }
+    else if (Email == ""){
+        alert("Please enter your email")
+        return false
+    }
+    else if (Sub == ""){
+        alert("Please enter subject")
+        return false
+    }
+    else if (Msg == ""){
+        alert("Invalid input")
+        return false
+    }
+    else{
+        alert("Thank you, your reseponse submitted")
+        return true
+    }
+  }
+</script>
 </head>
 <body>
 <!-- ======= Header ======= -->
@@ -70,7 +94,7 @@
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <!-- <li><a class="nav-link scrollto" href="#services">Services</a></li> -->
           <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li> -->
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Feedback</a></li>
           <li><a class="nav-link scrollto" href="/admin/">Admin</a></li>
           <li><a class="getstarted scrollto" href="/Login">Get Started</a></li>
         </ul>
@@ -199,7 +223,8 @@
             </div>
           </div>
 
-        </div> <!-- / row -->
+        </div> 
+        <!-- / row -->
         <!-- ======= Services Section ======= -->
     <!-- <section id="services" class="services">
 
@@ -270,8 +295,9 @@
 
       </div>
 
-    </section><!-- End Services Section -->
- -->     <!-- ======= Team Section ======= -->
+    </section>
+    <-- End Services Section -->
+  <!-- ======= Team Section ======= -->
      <!-- <section id="team" class="team">
 
       <div class="container" data-aos="fade-up">
@@ -363,15 +389,15 @@
 
       </div>
 
-    </section><!-- End Team Section --> -->
+    </section><-- End Team Section --> 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
 
       <div class="container" data-aos="fade-up">
 
         <header class="section-header">
-          <h2>Contact</h2>
-          <p>Contact Us</p>
+          <!--<h2>Contact</h2>-->
+          <p>Feedback Form</p>
         </header>
 
         <div class="row gy-4">
@@ -383,56 +409,56 @@
                 <div class="info-box">
                   <i class="fas fa-map-marker-alt"></i>
                   <h3>Address</h3>
-                  <p>Saraswati college<br>Kharghar, sector 5</p>
+                  <p>A108 Adam Street,<br>New York, NY 535022</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box">
                   <i class="fas fa-phone-alt"></i>
                   <h3>Call Us</h3>
-                  <p>+91 8355969664<br>+91 7057540115</p>
+                  <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="info-box">
                   <i class="far fa-envelope"></i>
                   <h3>Email Us</h3>
-                  <p>abhishekjadhav364@gmail.com<br>sagarmayekar12@gmail.com</p>
+                  <p>info@example.com<br>contact@example.com</p>
                 </div>
               </div>
               <div class="col-md-6">
-               
+                <div class="info-box">
+                  <i class="far fa-clock"></i>
+                  <h3>Open Hours</h3>
+                  <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+                </div>
               </div>
             </div>
 
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            <form action="/contact" name="feedbackform" onsubmit="return validateForm()" method="post" > {% csrf_token %}
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                  <input type="text" id="Fname" name="Fname" class="form-control" placeholder="Your Name" >
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                  <input type="email" class="form-control" id="Email" name="Email" placeholder="Your Email" >
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                  <input type="text" class="form-control"id="Sub" name="Sub" placeholder="Subject" >
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                  <textarea class="form-control" id="Msg" name="Msg" rows="6" placeholder="Message" ></textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
 
               </div>

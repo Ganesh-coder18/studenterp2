@@ -1,11 +1,10 @@
 import json
-from django import contrib
 from django.conf import settings
 from django.shortcuts import redirect, render,HttpResponse
 #from home.models import Register
 from django.contrib.auth.models import User
 
-from django.contrib import messages
+from django.contrib import admin, messages
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 from django.http import JsonResponse, response
@@ -96,10 +95,10 @@ def Login (request):
             return redirect ('Dashboard')
         else:
             messages.error(request,"Invalid USer")
-            return redirect('index')
+            return redirect('Login')
     else:    
         return render(request,'Login.htm')
-    
+
 def Signup (request):
     
     if request.method == "POST":
@@ -128,6 +127,14 @@ def handlelogout (request):
     return redirect('/')
 
 def Forget (request):
+    if request.method == "POST":
+        f_gr = request.POST.get('f_gr')
+        f_pass = request.POST.get('f_pass')
+        u = User.objects.get(username=f_gr)
+        u.set_password(f_pass)
+        u.save()
+        messages.success(request,"Password reset Successfully")
+        return redirect ('Login')
     return render(request,'Forget.htm')
 
 @login_required(login_url='/Login')
@@ -241,29 +248,35 @@ def profile(request):
     args = {'user':request.user}
     return render(request,'profile.htm',args) 
 
+
+
 @login_required(login_url='/Login')
 def viewprofile(request):
     user = request.user
     data = TestProfile.objects.filter(user=user)
     return render(request,'viewprofile.htm',{'data':data})
 
-# def attendance(request):
-#     user = request.user
-#     date = datetime.today()
-#     if request.method == "POST":
-#         attendance = Attendance(user=user,date=date)
-#         attendance.save()
-#     return render(request,'attendance.htm')
+def attendance(request):
+    user = request.user
+    date = datetime.today()
+    if request.method == "POST":
+        attendance = Attendance(user=user,date=date)
+        attendance.save()
+    return render(request,'attendance.htm')
  
-# def viewattendance(request):
-#     user = request.user
-#     data = Attendance.objects.filter(user=user)
-#     return render(request,'viewattendance.htm',{'data':data})
+def viewattendance(request):
+    user = request.user
+    data = Attendance.objects.filter(user=user)
+    return render(request,'viewattendance.htm',{'data':data})
 
 @login_required(login_url='/Login')
 def teacher(request):
     data = Lecture.objects.all()
     return render(request,'link.htm',{'data':data})
+    
+@login_required(login_url='/Login')
+def fees(request):
+    return render(request,'fees.htm')
 
 def atten(request):
 
@@ -280,7 +293,17 @@ def test(request):
     return render(request,'dash.htm',args)
 
 
-
+def contact(request):
+    if request.method == "POST":
+        Fname = request.POST.get('Fname')
+        Email = request.POST.get('Email')
+        Sub = request.POST.get('Sub')
+        Msg = request.POST.get('Msg')
+        #print(Fname,Email,Sub,Msg)
+        con = Feedback(Fname=Fname,Email=Email,Sub=Sub,Msg=Msg)
+        con.save()
+        return redirect('flex')
+    return render(request,'flex.htm')
 
 
 

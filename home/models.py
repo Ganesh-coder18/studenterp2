@@ -68,9 +68,9 @@ class TestProfile(models.Model):
     classdiv = models.CharField(max_length=150)
     rollno = models.CharField(max_length=150)
     
-# class Attendance(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     date = models.DateTimeField(default=timezone.now)
+class Attendance(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now)
     
 
 class Lecture(models.Model):
@@ -79,12 +79,25 @@ class Lecture(models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     link = models.URLField(max_length=150)
 
-# class Testattendance(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     subject = models.ForeignKey(Lecture,on_delete=models.CASCADE)
-#     date = models.DateTimeField(default=timezone.now)
+class Testattendance(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Lecture,on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now)
 
-# class Atten(models.Model):
+class Atten(models.Model):
     
-#     subject = models.ForeignKey(Lecture, on_delete=models.DO_NOTHING)
+    subject = models.ForeignKey(Lecture, on_delete=models.DO_NOTHING)
 
+
+class Feedback(models.Model):
+    Fname = models.CharField(max_length=150)
+    Email = models.CharField(max_length=150)
+    Sub = models.CharField(max_length=150)
+    Msg = models.CharField(max_length=150)
+
+
+class Contact(models.Model):
+    Fname = models.CharField(max_length=150)
+    Email = models.CharField(max_length=150)
+    Sub = models.CharField(max_length=150)
+    Msg = models.CharField(max_length=150)
